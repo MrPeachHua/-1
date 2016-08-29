@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+  http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	
+	<!-- 加载属性配置文件  -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			 <list>
+				<value>classpath*:properties/share.properties</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 这里配置的是freemarker -->
+	<bean id="freemarkerConfig"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath" value="/WEB-INF/views/" />
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="template_update_delay">0</prop>
+				<prop key="default_encoding">UTF-8</prop>
+				<prop key="number_format">0.##########</prop>
+				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+				<prop key="classic_compatible">true</prop>
+				<prop key="template_exception_handler">ignore</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="baseUrl" class="java.lang.String">											
+		<constructor-arg index="0" value="${baseUrl}"/>
+	</bean>
+	<bean id="appId" class="java.lang.String">											
+		<constructor-arg index="0" value="${appId}"/>
+	</bean>
+	<bean id="appSecret" class="java.lang.String">											
+		<constructor-arg index="0" value="${appSecret}"/>
+	</bean>
+	<bean id="partner" class="java.lang.String">											
+		<constructor-arg index="0" value="${partner}"/>
+	</bean>
+	<bean id="partnerKey" class="java.lang.String">											
+		<constructor-arg index="0" value="${partnerKey}"/>
+	</bean>
+</beans>

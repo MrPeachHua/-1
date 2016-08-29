@@ -1,0 +1,394 @@
+/**
+ * 路由配置及加载代码
+ */
+"use strict"
+app.config(["$stateProvider","$urlRouterProvider",routeFn]);
+function routeFn($stateProvider,$urlRouterProvider){
+    $urlRouterProvider.when('','/home');
+    $stateProvider
+        .state('home',{
+            url:'/home',
+            templateUrl:'index.html',
+            controller:'Maintrl',
+            resolve:{
+                deps:["$ocLazyLoad",function($ocLazyLoad){
+                    return $ocLazyLoad.load("home_Res").then(
+                        function(){
+                            return $ocLazyLoad.load("../js/controllers/indexController.js");
+                        }
+                    )
+                }]
+            }
+        })
+        //车管家
+        .state('home.carButler',{
+            url:'/carButler',
+            views:{
+                'homeCont':{
+                    templateUrl:"../templates/carButler.html",
+                    controller:'carButlerCtrl'
+                }
+            },
+            resolve:{
+                deps:["$ocLazyLoad",function($ocLazyLoad){
+                    return $ocLazyLoad.load("carButler_Res").then(
+                        function (){
+                            return $ocLazyLoad.load([
+                                '../js/controllers/carButlerController.js',
+                                '../js/services/carButlerService.js'
+                            ]);
+                        }
+                    )
+                }]
+            }
+        })
+        //违章查询
+        .state('home.illegalQuery',{
+            url:'/illegaQuery',
+            views:{
+                'homeCont':{
+                    templateUrl:'../templates/illegaQuery.html',
+                    controller:'illegaQueryCtrl'
+                }
+            },
+            resolve:{
+                deps:["$ocLazyLoad",function($ocLazyLoad){
+                    return $ocLazyLoad.load("illegaQuery_Res").then(
+                        function (){
+                            return $ocLazyLoad.load([
+                                '../js/controllers/illegaQueryController.js',
+                                '../js/services/illegaQueryService.js'
+                            ]);
+                        }
+                    )
+                }]
+            }
+        })
+        //违章列表页面
+        .state('home.illegaDetail',{
+            url:'/illegaDetail',
+            views:{
+                'homeCont':{
+                    templateUrl:'../templates/illegaDetail.html',
+                    controller:'illegaDetailCtrl'
+                }
+            },
+            resolve:{
+                deps:["$ocLazyLoad",function($ocLazyLoad){
+                    return $ocLazyLoad.load("illegaDetail_Res").then(
+                        function (){
+                            return $ocLazyLoad.load([
+                                '../js/controllers/illegaDetailController.js'
+                            ]);
+                        }
+                    )
+                }]
+            }
+        })
+        //违章详情页面
+        .state('home.illegaInfor',{
+            url:'/illegaInfor/:date/:area/:act/:code/:fen/:money/:handled',
+            views:{
+                'homeCont':{
+                    templateUrl:'../templates/illegaInfor.html',
+                    controller:'illegaInforCtrl'
+                }
+            },
+            resolve:{
+                deps:["$ocLazyLoad",function($ocLazyLoad){
+                    return $ocLazyLoad.load("illegaInfor_Res").then(
+                        function (){
+                            return $ocLazyLoad.load([
+                                '../js/controllers/illegaInforController.js'
+                            ]);
+                        }
+                    )
+                }]
+            }
+        })
+        //添加加油卡充值
+        .state('home.gasCard',{
+            url:'/gasCard',
+            views:{
+                'homeCont':{
+                    templateUrl:'../templates/gasCard.html',
+                    controller:'gasCardCtrl'
+                }
+            },
+            resolve:{
+                deps:["$ocLazyLoad",function($ocLazyLoad){
+                    return $ocLazyLoad.load("gasCard_Res").then(
+                        function (){
+                            return $ocLazyLoad.load([
+                                '../js/controllers/gasCardController.js'
+                            ]);
+                        }
+                    )
+                }]
+            }
+        })
+        //添加加油卡类型
+        .state('home.addCarType',{
+            url:'/addCarType',
+            views:{
+                'homeCont':{
+                    templateUrl:'../templates/addCarType.html',
+                    controller:'addCarTypeCtrl'
+                }
+            },
+            resolve:{
+                deps:["$ocLazyLoad",function($ocLazyLoad){
+                    return $ocLazyLoad.load("addCarType_Res").then(
+                        function (){
+                            return $ocLazyLoad.load([
+                                '../js/controllers/addCarTypeController.js'
+                            ]);
+                        }
+                    )
+                }]
+            }
+        })
+        //登录
+        .state('home.login',{
+            url:'/login',
+            views:{
+                'homeCont':{
+                    templateUrl:'../templates/login.html',
+                    controller:'loginCtrl'
+                }
+            },
+            resolve:{
+                deps:["$ocLazyLoad",function($ocLazyLoad){
+                    return $ocLazyLoad.load("login_Res").then(
+                        function (){
+                            return $ocLazyLoad.load([
+                                '../js/controllers/loginController.js',
+                                '../js/services/loginService.js'
+                            ]);
+                        }
+                    )
+                }]
+            }
+        })
+        //注册
+        .state('home.register',{
+            url:'/register',
+            views:{
+                'homeCont':{
+                    templateUrl:'../templates/register.html',
+                    controller:'registerCtrl'
+                }
+            },
+            resolve:{
+                deps:["$ocLazyLoad",function($ocLazyLoad){
+                    return $ocLazyLoad.load("register_Res").then(
+                        function (){
+                            return $ocLazyLoad.load([
+                                '../js/controllers/registerController.js',
+                                '../js/services/registerService.js'
+                            ]);
+                        }
+                    )
+                }]
+            }
+        })
+        //洗车
+        .state('home.cleanCar',{
+            url:'/cleanCar',
+            views:{
+                'homeCont':{
+                    templateUrl:'../templates/cleanCar.html',
+                    controller:'cleanCarCtrl'
+                }
+            },
+            resolve:{
+                deps:["$ocLazyLoad",function($ocLazyLoad){
+                    return $ocLazyLoad.load("cleanCar_Res").then(
+                        function (){
+                            return $ocLazyLoad.load([
+                                '../js/controllers/cleanCarController.js',
+                                '../js/services/cleanCarService.js'
+                            ]);
+                        }
+                    )
+                }]
+            }
+        })
+        //洗车订单记录
+        .state('home.orderRecord',{
+            url:'/orderRecord',
+            views:{
+                'homeCont':{
+                    templateUrl:'../templates/orderRecord.html',
+                    controller:'orderRecordCtrl'
+                }
+            },
+            resolve:{
+                deps:["$ocLazyLoad",function($ocLazyLoad){
+                    return $ocLazyLoad.load("orderRecord_Res").then(
+                        function (){
+                            return $ocLazyLoad.load([
+                                '../js/controllers/orderRecordController.js',
+                                '../js/services/orderRecordService.js'
+                            ]);
+                        }
+                    )
+                }]
+            }
+        })
+        //租车
+        .state('home.rentCar',{
+            url:'/rentCar',
+            views:{
+                'homeCont':{
+                    templateUrl:'../templates/rentCar.html',
+                    controller:'rentCarCtrl'
+                }
+            },
+            resolve:{
+                deps:["$ocLazyLoad",function($ocLazyLoad){
+                    return $ocLazyLoad.load("rentCar_Res").then(
+                        function (){
+                            return $ocLazyLoad.load([
+                                '../js/controllers/rentCarController.js',
+                                '../js/services/rentCarService.js'
+                            ]);
+                        }
+                    )
+                }]
+            }
+        })
+        //代泊
+        .state('home.replaceStop',{
+            url:'/replaceStop',
+            views:{
+                'homeCont':{
+                    templateUrl:'../templates/replaceStop.html',
+                    controller: 'replaceStopCtrl'
+                }
+            },
+            resolve:{
+                deps:["$ocLazyLoad",function($ocLazyLoad){
+                    return $ocLazyLoad.load("replaceStop_Res").then(
+                        function (){
+                            return $ocLazyLoad.load([
+                                '../js/controllers/replaceStopController.js',
+                                '../js/services/replaceStopService.js'
+                            ]);
+                        }
+                    )
+                }]
+            }
+        })
+        //代泊订单
+        .state('home.replaceOrder',{
+            url:'/replaceOrder',
+            views:{
+                'homeCont':{
+                    templateUrl:'../templates/replaceOrder.html',
+                    controller:'replaceOrderCtrl'
+                }
+            },
+            resolve:{
+                deps:["$ocLazyLoad",function($ocLazyLoad){
+                    return $ocLazyLoad.load("replaceOrder_Res").then(
+                        function (){
+                            return $ocLazyLoad.load([
+                                '../js/controllers/replaceOrderController.js',
+                                '../js/services/replaceOrderService.js'
+                            ]);
+                        }
+                    )
+                }]
+            }
+        })
+        //代泊订单评价
+        .state('home.orderAssess',{
+            url:'/orderAssess',
+            views:{
+                'homeCont':{
+                    templateUrl:'../templates/orderAssess.html',
+                    controller:'orderAssessCtrl'
+                }
+            },
+            resolve:{
+                deps:["$ocLazyLoad",function($ocLazyLoad){
+                    return $ocLazyLoad.load("orderAssess_Res").then(
+                        function (){
+                            return $ocLazyLoad.load([
+                                '../js/controllers/orderAssessController.js',
+                                '../js/services/orderAssessService.js'
+                            ]);
+                        }
+                    )
+                }]
+            }
+        })
+        //首页报表——移动端
+        .state('home.chart',{
+            url:'/chart',
+            views:{
+                'homeCont':{
+                    templateUrl:'../templates/chart.html',
+                    controller:'chartCtrl'
+                }
+            },
+            resolve:{
+                deps:["$ocLazyLoad",function($ocLazyLoad){
+                    return $ocLazyLoad.load("chart_Res").then(
+                        function (){
+                            return $ocLazyLoad.load([
+                                '../js/controllers/chartController.js?V=1.0.1',
+                                '../js/services/chartService.js'
+                            ])
+                        }
+                    )
+                }]
+            }
+        })
+        //项目统计--移动端
+        .state('home.proChart',{
+            url:'/proChart',
+            views:{
+                'homeCont':{
+                    templateUrl:'../templates/proChart.html',
+                    controller:'proChartCtrl'
+                }
+            },
+            resolve:{
+                deps:["$ocLazyLoad",function($ocLazyLoad){
+                    return $ocLazyLoad.load("proChart_Res").then(
+                        function(){
+                            return $ocLazyLoad.load([
+                                '../js/controllers/proChartController.js?V=1.0.1',
+                                '../js/services/proChartService.js'
+                            ])
+                        }
+                    )
+                }]
+            }
+        })
+        //报表--PC端
+        .state('home.report',{
+            url:'/report',
+            views:{
+                'homeCont':{
+                    templateUrl:'../templates/report.html',
+                    controller:'reportCtrl'
+                }
+            },
+            resolve:{
+                deps:["$ocLazyLoad",function($ocLazyLoad){
+                    return $ocLazyLoad.load("report_Res").then(
+                        function(){
+                            return $ocLazyLoad.load([
+                                '../js/controllers/reportController.js?V=1.0.1',
+                                '../js/services/chartService.js'
+                            ])
+                        }
+                    )
+                }]
+            }
+        })
+
+};

@@ -1,0 +1,5 @@
+baseUrl=${base_url}
+appId=${app_id}
+appSecret=${app_secret}
+partner=${partner}
+partnerKey=${partner_key}

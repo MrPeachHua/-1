@@ -1,0 +1,212 @@
+package com.boxiang.weixin.sample.controller;
+
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.boxiang.weixin.utils.AppAPIUtil;
+import com.boxiang.weixin.utils.MD5Util;
+
+@Controller
+@RequestMapping("Chart")
+public class ChartController {
+	@Resource
+	private String baseUrl;
+	
+	/**
+	 * 今日收入饼图
+	 * @param userId  用户Id
+	 * @param version 版本号
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/getDaySale/{userId}/{version:.+}")
+	public void getDaySale(@PathVariable String userId,@PathVariable String version,HttpServletRequest request,HttpServletResponse response) {
+		String Url="sideb/statistics/getDaySale";
+		Map<String, Object> params=new HashMap<String, Object>();
+		params.put("userId", userId);
+		params.put("version", version);
+		params.put("timestamp", "20160101");
+		params.put("summary",MD5Util.originalSummary(params));
+		PrintWriter out;
+		response.setContentType("text/html;charset=UTF-8");
+		try {
+			/*String message=AppAPIUtil.net(baseUrl+Url, null, "GET",getMethodUrl);*/
+			String message=AppAPIUtil.net(baseUrl+Url, params, "POST",null);
+			System.out.println(message);
+			out=response.getWriter();
+			out.print(message);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+	}
+	
+	/**
+	 * 本周收入图折线图
+	 * @param userId   用户Id
+	 * @param version  版本号
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/getWeekSale/{userId}/{version:.+}")
+	public void getWeekSale(@PathVariable String userId,@PathVariable String version,HttpServletRequest request,HttpServletResponse response) {
+		String Url="sideb/statistics/getWeekSale";
+		Map<String, Object> params=new HashMap<String, Object>();
+		params.put("userId", userId);
+		params.put("version", version);
+		params.put("timestamp", "20160101");
+		params.put("summary",MD5Util.originalSummary(params));
+		PrintWriter out;
+		response.setContentType("text/html;charset=UTF-8");
+		try {
+			/*String message=AppAPIUtil.net(baseUrl+Url, null, "GET",getMethodUrl);*/
+			String message=AppAPIUtil.net(baseUrl+Url, params, "POST",null);
+			System.out.println(message);
+			out=response.getWriter();
+			out.print(message);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/**
+	 * 月统计柱状图
+	 * @param year      年
+	 * @param month     月
+	 * @param userId
+	 * @param version
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/getMonthSale")
+	public void getMonthSale(HttpServletRequest request,HttpServletResponse response) {
+		String year = request.getParameter("year");
+		String month = request.getParameter("month");
+		String userId = request.getParameter("userId");
+		String version = request.getParameter("version");
+		String parkingId = request.getParameter("parkingId");
+		String Url="sideb/statistics/getMonthSale";
+		Map<String, Object> params=new HashMap<String, Object>();
+		params.put("year", year);
+		params.put("month", month);
+		params.put("userId", userId);
+		params.put("version", version);
+		params.put("parkingId", parkingId);
+		params.put("timestamp", "20160101");
+		params.put("summary",MD5Util.originalSummary(params));
+		PrintWriter out;
+		response.setContentType("text/html;charset=UTF-8");
+		try {
+			/*String message=AppAPIUtil.net(baseUrl+Url, null, "GET",getMethodUrl);*/
+			String message=AppAPIUtil.net(baseUrl+Url, params, "POST",null);
+			System.out.println(message);
+			out=response.getWriter();
+			out.print(message);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * 临时放行
+	 * @param userId    用户的Id
+	 * @param carNumber 车牌号
+	 * @param version
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/clearance/{userId}/{carNumber}/{version:.+}")
+	public  void clearance(@PathVariable String userId,@PathVariable String carNumber,@PathVariable String version,HttpServletRequest request,HttpServletResponse response ){
+		String Url="sideb/parking/clearance";
+		String getMethodUrl = userId+"/"+carNumber+"/"+version+"/"+ MD5Util.sign(userId+carNumber+version, null, AppAPIUtil.DEF_CHATSET);
+		PrintWriter out;
+		response.setContentType("text/html;charset=UTF-8");		
+		try {
+			String message=AppAPIUtil.net(baseUrl+Url, null, "GET",getMethodUrl);	
+			System.out.println(message);
+			out=response.getWriter();
+			out.print(message);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}	
+		
+	}
+	
+	
+	
+	/**
+	 * 项目统计 日流水折线图
+	 * @param year      年
+	 * @param month     月
+	 * @param userId
+	 * @param version
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/getMonthStream/{year}/{month}/{userId}/{pakingId}/{version:.+}")
+	public void getMonthStream(@PathVariable String year,@PathVariable String month,@PathVariable String userId,@PathVariable String pakingId,@PathVariable String version,HttpServletRequest request,HttpServletResponse response) {
+		String Url="sideb/statistics/getMonthStream";
+		Map<String, Object> params=new HashMap<String, Object>();
+		params.put("year", year);
+		params.put("month", month);
+		params.put("userId", userId);
+		params.put("parkingId", pakingId);
+		params.put("version", version);
+		params.put("timestamp", "20160101");
+		params.put("summary",MD5Util.originalSummary(params));
+		PrintWriter out;
+		response.setContentType("text/html;charset=UTF-8");
+		try {
+			/*String message=AppAPIUtil.net(baseUrl+Url, null, "GET",getMethodUrl);*/
+			String message=AppAPIUtil.net(baseUrl+Url, params, "POST",null);
+			System.out.println(message);
+			out=response.getWriter();
+			out.print(message);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	/**
+	 * 获取停车场
+	 * @param userId    用户的Id
+	 * @param carNumber 
+	 * @param version
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/getParking/{userId}/{version:.+}")
+	public  void getParking(@PathVariable String userId,@PathVariable String version,HttpServletRequest request,HttpServletResponse response ){
+		
+		String Url="loginSide/getParking";
+		String getMethodUrl = userId+"/"+version+"/"+ MD5Util.sign(userId+version, null, AppAPIUtil.DEF_CHATSET);
+		PrintWriter out;
+		response.setContentType("text/html;charset=UTF-8");		
+		try {
+			String message=AppAPIUtil.net(baseUrl+Url, null, "GET",getMethodUrl);	
+			System.out.println(message);
+			out=response.getWriter();
+			out.print(message);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}	
+		
+	}
+}

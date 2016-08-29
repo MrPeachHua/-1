@@ -1,0 +1,5 @@
+<input name="username" value="" class="" ng-model="username"/>
+<input name="psw" value="" class="" ng-model="psw"/>
+<button ng-click="localBtn(username,psw)">测试localstorage</button>
+
+<p>缓存的值{{localStorageDemo}}</p>

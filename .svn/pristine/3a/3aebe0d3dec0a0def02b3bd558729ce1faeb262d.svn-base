@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MyApp">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <link rel="stylesheet" href="../content/bootstrap.min.css"/>
+    <script src="../scripts/jquery-1.9.1.min.js"></script>
+    <script src="../scripts/angular.min.js"></script>
+    <script src="../scripts/angular-ui-router.min.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/antController.js"></script>
+    <script src="../js/antService.js"></script>
+    <title>index</title>
+</head>
+<body>
+<div ui-view=""></div>
+<script type="text/ng-template" id="index.html">
+    <div ui-view="homeCont"></div>
+</script>
+</body>
+</html>
